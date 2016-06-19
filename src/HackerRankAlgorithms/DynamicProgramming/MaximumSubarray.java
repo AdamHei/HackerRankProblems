@@ -11,7 +11,7 @@ import java.util.Arrays;
  */
 public class MaximumSubarray {
 
-    static int[][] memoization;
+    private static long[][] memoization;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -19,23 +19,23 @@ public class MaximumSubarray {
 
         for (int i = 1; i <= cases; i++){
             br.readLine();
-            int[] arr = toIntArray(br.readLine().split(" "));
-            memoization = new int[arr.length][arr.length];
-            for (int j = 0; j < memoization.length; j++){
-                for (int k = 0; k < memoization.length; k++){
-                    memoization[j][k] = Integer.MIN_VALUE;
-                }
-            }
-            int nonContig = nonContig(arr);
-            int contig = contig(arr);
+            long[] arr = toIntArray(br.readLine().split(" "));
+//            memoization = new long[arr.length][arr.length];
+//            for (int j = 0; j < memoization.length; j++){
+//                for (int k = 0; k < memoization.length; k++){
+//                    memoization[j][k] = Long.MIN_VALUE;
+//                }
+//            }
+            long nonContig = nonContig(arr);
+            long contig = max_subarray(arr);
             System.out.println(contig + " " + nonContig);
         }
     }
 
-    private static int nonContig(int[] arr){
-        int[] temp = Arrays.copyOf(arr, arr.length);
+    private static long nonContig(long[] arr){
+        long[] temp = Arrays.copyOf(arr, arr.length);
         Arrays.sort(temp);
-        int max = temp[temp.length - 1];
+        long max = temp[temp.length - 1];
         for (int i = temp.length - 2; i >= 0; i--){
             if (max + temp[i] > max){
                 max += temp[i];
@@ -47,24 +47,36 @@ public class MaximumSubarray {
         return max;
     }
 
-    private static int contig(int[] arr){
-        int max = Integer.MIN_VALUE;
+    private static long max_subarray(long[] temp){
+        long[] arr = Arrays.copyOf(temp, temp.length);
+        long max_ending_here = arr[0];
+        long max_so_far = arr[0];
+        for (int i = 1; i < arr.length; i++){
+            long x = arr[i];
+            max_ending_here = Math.max(x, max_ending_here + x);
+            max_so_far = Math.max(max_so_far, max_ending_here);
+        }
+        return max_so_far;
+    }
+
+    private static long contig(long[] arr){
+        long max = Long.MIN_VALUE;
         for (int i = 0; i < arr.length; i++){
             for (int j = arr.length - 1; j >= i; j--){
-                int sum = sumFrom(arr, i, j);
+                long sum = sumFrom(arr, i, j);
                 max = Math.max(sum, max);
             }
         }
         return max;
     }
 
-    private static int sumFrom(int[] arr, int i, int j){
-        if (memoization[i][j] != Integer.MIN_VALUE){
+    private static long sumFrom(long[] arr, int i, int j){
+        if (memoization[i][j] != Long.MIN_VALUE){
             return memoization[i][j];
         }
-        int sum = 0;
+        long sum = 0;
         for (int temp = i; temp <= j; temp++){
-            if (memoization[temp][j] != Integer.MIN_VALUE){
+            if (memoization[temp][j] != Long.MIN_VALUE){
                 sum += memoization[temp][j];
                 temp = j + 1;
             }
@@ -76,10 +88,10 @@ public class MaximumSubarray {
         return sum;
     }
 
-    private static int[] toIntArray(String[] arr){
-        int[] toReturn = new int[arr.length];
+    private static long[] toIntArray(String[] arr){
+        long[] toReturn = new long[arr.length];
         for (int i = 0; i < arr.length; i += 1){
-            toReturn[i] = Integer.parseInt(arr[i]);
+            toReturn[i] = Long.parseLong(arr[i]);
         }
         return toReturn;
     }
