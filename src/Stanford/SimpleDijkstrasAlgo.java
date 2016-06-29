@@ -14,22 +14,27 @@ public class SimpleDijkstrasAlgo {
         int cases = Integer.parseInt(br.readLine());
         for (int i = 0; i < cases; i++){
             int[] nandm = toIntArray(br.readLine().split(" "));
-            Graph graph = new Graph(nandm[0]);
+            Graph graph = new Graph(nandm[0] + 1);
             for (int j = 0; j < nandm[1]; j++){
                 int[] edge = toIntArray(br.readLine().split(" "));
-                graph.addEdge(edge[0] - 1, edge[1] - 1, edge[2]);
+                graph.addEdge(edge[0], edge[1], edge[2]);
             }
-            int source = Integer.parseInt(br.readLine()) - 1;
+            int source = Integer.parseInt(br.readLine());
+//            graph.printGraph();
             int[] shortest = dijkstrasAlgo(graph, source);
-            print(shortest);
+//            print(shortest);
         }
     }
 
     public static void print(int[] arr){
-        for (int i: arr){
-            if (i != 0)
-                System.out.print(i + " ");
+        for (int i = 0; i < arr.length; i++){
+//            if (arr[i] != 0)
+                System.out.print(arr[i] + " ");
         }
+//        for (int i: arr){
+//            if (i != 0)
+//                System.out.print(i + " ");
+//        }
     }
 
     private static int[] toIntArray(String[] arr){
@@ -40,7 +45,7 @@ public class SimpleDijkstrasAlgo {
         return toReturn;
     }
 
-    static int[] dijkstrasAlgo(Graph graph, int source){
+    private static int[] dijkstrasAlgo(Graph graph, int source){
         boolean[] visited = new boolean[graph.size()];
         Arrays.fill(visited, false);
 
@@ -72,11 +77,10 @@ public class SimpleDijkstrasAlgo {
                 shortestDistance[i] = graph.get(i).shortestDistance;
             }
         }
-
         return shortestDistance;
     }
 
-    static class Graph{
+    private static class Graph{
         private List<Node> nodes;
 
         Graph(int maxSize){
@@ -95,6 +99,16 @@ public class SimpleDijkstrasAlgo {
             a.addEdge(to, weight);
             b.addEdge(from, weight);
         }
+
+        void printGraph(){
+            for (Node node: nodes){
+                System.out.print(node.getIndex() + ":::: ");
+                for (Edge edge: node.getNeighbors()){
+                    System.out.print("(neighbor: " + edge.neighbor + ", weight: " + edge.weight + "), ");
+                }
+                System.out.println();
+            }
+        }
     }
 
     static class Node implements Comparable<Node>{
@@ -112,6 +126,7 @@ public class SimpleDijkstrasAlgo {
             if (neighbors.containsKey(neighbor)){
                 Edge edge = neighbors.get(neighbor);
                 if (weight < edge.weight){
+                    System.out.println("Replacing edge from " + index + " to " + neighbor + " with weight " + edge.weight + " to new weight of " + weight);
                     edge.weight = weight;
                 }
             }
@@ -135,7 +150,7 @@ public class SimpleDijkstrasAlgo {
         }
     }
 
-    static class Edge{
+    private static class Edge{
         int neighbor;
         int weight;
         Edge(int neighbor, int weight)
