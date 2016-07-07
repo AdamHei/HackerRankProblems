@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,18 +19,22 @@ public class playground {
 //        System.out.println(lists[0].get(0));
 
 
-        List<String> lines = Files.readAllLines(Paths.get("C:/Users/Adam/Desktop/findthediff.txt"));
-        int[] firstLine = toIntArray(lines.get(0).split(" "));
-        int[] secondLine = toIntArray(lines.get(1).split(" "));
+//        List<String> lines = Files.readAllLines(Paths.get("C:/Users/Adam/Desktop/findthediff.txt"));
+//        int[] firstLine = toIntArray(lines.get(0).split(" "));
+//        int[] secondLine = toIntArray(lines.get(1).split(" "));
+//
+//        for (int i = 0; i < Math.min(firstLine.length, secondLine.length); i++){
+//            int index = i >= 10 ? i : i + 1;
+//            if (firstLine[i] != secondLine[i]){
+//                System.out.println("Exp distance from " + (index) + " to 11 was " + secondLine[i]);
+//                System.out.println("Act distance from " + (index) + " to 11 was " + firstLine[i]);
+//                System.out.println();
+//            }
+//        }
 
-        for (int i = 0; i < Math.min(firstLine.length, secondLine.length); i++){
-            int index = i >= 10 ? i : i + 1;
-            if (firstLine[i] != secondLine[i]){
-                System.out.println("Exp distance from " + (index) + " to 11 was " + secondLine[i]);
-                System.out.println("Act distance from " + (index) + " to 11 was " + firstLine[i]);
-                System.out.println();
-            }
-        }
+        BigDecimal a = new BigDecimal("2.50");
+        BigDecimal b = new BigDecimal("2.5");
+        System.out.println(a.equals(b));
     }
 
     private static int[] toIntArray(String[] arr){

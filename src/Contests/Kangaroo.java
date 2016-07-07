@@ -16,6 +16,10 @@ public class Kangaroo {
         double v1 = arr[1];
         double x2 = arr[2];
         double v2 = arr[3];
+        if (v1 == v2 && x2 != x1){
+            System.out.println("NO");
+            System.exit(0);
+        }
         double steps = (x2 - x1) / (v1 - v2);
         System.out.println(steps == Math.ceil(steps) && steps >= 0 ? "YES" : "NO");
     }

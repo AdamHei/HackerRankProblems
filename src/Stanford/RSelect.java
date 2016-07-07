@@ -8,7 +8,7 @@ import java.util.Random;
  */
 public class RSelect {
 
-    static Random rand = new Random();
+    private static Random rand = new Random();
 
     public static void main(String[] args){
         int[] arr = new int[10];

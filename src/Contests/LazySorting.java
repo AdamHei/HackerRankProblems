@@ -18,11 +18,13 @@ public class LazySorting {
 
         long[] arr = toLongArray(br.readLine().split(" "));
 //        long[] arr = {1,2,3};
+
         Set<Long> set = new HashSet<>();
         for (long i: arr){
             set.add(i);
         }
         int num = (arr.length - set.size()) * 2;
+
         BigDecimal numDupes = new BigDecimal(Integer.toString(num));
         long length = arr.length;
         BigDecimal distinctPerms = factorial(length).divide(numDupes.equals(BigDecimal.ZERO) ? BigDecimal.ONE : numDupes, 100, RoundingMode.CEILING);
