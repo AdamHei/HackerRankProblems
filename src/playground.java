@@ -32,9 +32,9 @@ public class playground {
 //            }
 //        }
 
-        BigDecimal a = new BigDecimal("2.50");
-        BigDecimal b = new BigDecimal("2.5");
-        System.out.println(a.equals(b));
+        double d = .5;
+        double x = Double.POSITIVE_INFINITY;
+        System.out.println(d + x);
     }
 
     private static int[] toIntArray(String[] arr){
