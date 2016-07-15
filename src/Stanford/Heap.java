@@ -25,7 +25,7 @@ class Heap {
         return heap.size() == 0;
     }
 
-    void insert(int k){
+    private void insert(int k){
         heap.add(k);
         int index = heap.size() - 1;
 

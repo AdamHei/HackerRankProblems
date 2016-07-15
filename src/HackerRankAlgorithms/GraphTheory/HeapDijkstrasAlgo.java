@@ -23,8 +23,8 @@ public class HeapDijkstrasAlgo {
             Graph graph = new Graph(numNodes + 1);
 
             int[][] edges = new int[numNodes + 1][numNodes + 1];
-            for (int k = 0; k < edges.length; k++){
-                Arrays.fill(edges[k], Integer.MAX_VALUE);
+            for (int[] edge : edges) {
+                Arrays.fill(edge, Integer.MAX_VALUE);
             }
 
             for (int j = 0; j < numEdges; j++){
@@ -61,7 +61,7 @@ public class HeapDijkstrasAlgo {
         return toReturn;
     }
 
-    static void dijkstrasAlgo(Graph graph, int sourceIndex){
+    private static void dijkstrasAlgo(Graph graph, int sourceIndex){
         Node source = graph.vertices[sourceIndex];
         boolean[] visited = new boolean[graph.size];
         Heap heap = new Heap();
@@ -93,7 +93,7 @@ public class HeapDijkstrasAlgo {
         System.out.println();
     }
 
-    static class Heap{
+    private static class Heap{
         private List<Node> heap;
 
         Heap(){
@@ -128,6 +128,13 @@ public class HeapDijkstrasAlgo {
         }
 
         void insert(Node n){
+            /*
+             * This check just saved my heap implementation
+             */
+            if (heap.contains(n)){
+                return;
+            }
+
             heap.add(n);
             int index = heap.size() - 1;
             int parentIndex = index / 2;
@@ -191,11 +198,11 @@ public class HeapDijkstrasAlgo {
         }
     }
 
-    static class Graph{
+    private static class Graph{
         Node[] vertices;
         int size;
 
-        public Graph(int size){
+        Graph(int size){
             this.size = size;
             vertices = new Node[size];
             for (int i = 0; i < size; i++){
@@ -203,7 +210,7 @@ public class HeapDijkstrasAlgo {
             }
         }
 
-        public void addEdge(int x, int y, int w){
+        void addEdge(int x, int y, int w){
             vertices[x].neighbors.add(new Neighbor(y, w));
 //            vertices[y].neighbors.add(new Neighbor(x, w));
         }
@@ -234,7 +241,7 @@ public class HeapDijkstrasAlgo {
         }
     }
 
-    static class Neighbor{
+    private static class Neighbor{
         int index;
         int weight;
 

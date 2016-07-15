@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Created by Adam on 6/25/2016.
+ * This implementation sucks
  */
 public class DijkstrasAlgo {
     public static void main(String[] args) throws IOException {
