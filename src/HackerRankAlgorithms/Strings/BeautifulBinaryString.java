@@ -23,12 +23,4 @@ public class BeautifulBinaryString {
         }
         System.out.println(count);
     }
-
-    private static int[] toIntArray(char[] arr){
-        int[] toReturn = new int[arr.length];
-        for (int i = 0; i < arr.length; i++){
-            toReturn[i] = Character.getNumericValue(arr[i]);
-        }
-        return toReturn;
-    }
 }
