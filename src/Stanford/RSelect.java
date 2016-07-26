@@ -1,6 +1,5 @@
 package Stanford;
 
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -8,9 +7,10 @@ import java.util.Random;
  */
 public class RSelect {
 
-    private static Random rand = new Random();
+    private static Random rand;
 
     public static void main(String[] args){
+        rand = new Random();
         int[] arr = new int[10];
         for (int i = 0; i < arr.length; i++){
             arr[i] = rand.nextInt(100);
