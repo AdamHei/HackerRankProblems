@@ -1,18 +1,24 @@
+package HackerRankAlgorithms.Sorting;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 /**
- * Created by Adam on 5/11/2016.
+ * Created by Adam on 7/28/2016.
  */
-public class Template {
+public class CountingSort {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int cases = Integer.parseInt(br.readLine().trim());
 
-        for (int i = 1; i <= cases; i++){
-
+        int[] arr = toIntArray(br.readLine().split(" "));
+        int[] counts = new int[100];
+        for (int i: arr){
+            counts[i]++;
+        }
+        for (int i: counts){
+            System.out.print(i + " ");
         }
     }
 
@@ -22,17 +28,5 @@ public class Template {
             toReturn[i] = Integer.parseInt(arr[i]);
         }
         return toReturn;
-    }
-
-    public static void print(int[] arr){
-        for (int i: arr) {
-            System.out.print(i + " ");
-        }
-    }
-
-    static void print(ArrayList<Integer> arr){
-        for (int i: arr){
-            System.out.print(i + " ");
-        }
     }
 }
