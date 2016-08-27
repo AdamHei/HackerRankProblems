@@ -50,8 +50,10 @@ public class NewPrimsST {
         }
 
         int source = Integer.parseInt(br.readLine()) - 1;
-        int mstSize = naivePrimsAlgo(graph, adjacencyList, source, edges);
-        System.out.println(mstSize);
+//        int mstSize = naivePrimsAlgo(graph, adjacencyList, source, edges);
+        int size = primsAlgo(graph, adjacencyList, source);
+        System.out.println(size);
+//        System.out.println(mstSize);
     }
 
     private static int naivePrimsAlgo(Node[] graph, List<Edge>[] adjacencyList, int source, int[][] edges){
@@ -100,7 +102,13 @@ public class NewPrimsST {
         Node sourcenode = graph[source];
         sourcenode.distance = 0;
         Heap heap = new Heap();
-        heap.insert(sourcenode);
+//        heap.insert(sourcenode);
+
+        for (Edge edge: adjacencyList[source]){
+            graph[edge.toIndex].distance = edge.weight;
+        }
+
+        Arrays.stream(graph).forEach(heap::insert);
 
         while (!heap.isEmpty()) {
             Node n = heap.extract();
