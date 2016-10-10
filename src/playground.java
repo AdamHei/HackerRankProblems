@@ -1,5 +1,7 @@
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Adam on 6/12/2016.
@@ -7,12 +9,24 @@ import java.util.Arrays;
 public class playground {
 
     private static int[] memo;
+    private static Map<Integer, Integer> map = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
-        int[] arr = {2,3,4,1,5};
+//        int[] arr = {2,3,4,1,5};
+//
+//        mergeSort(arr, 0, arr.length - 1);
+//        System.out.println(Arrays.toString(arr));
 
-        mergeSort(arr, 0, arr.length - 1);
-        System.out.println(Arrays.toString(arr));
+        for (int i = 0; i < 5; i++) {
+            System.out.println(fibonacci(i));
+        }
+    }
+
+    private static int fibonacci(int n){
+        if (n == 0 || n == 1) return 1;
+        if (map.containsKey(n)) return map.get(n);
+        map.put(n, fibonacci(n - 1) + fibonacci(n - 2));
+        return map.get(n);
     }
 
     private static void mergeSort(int[] arr, int left, int right){
@@ -38,7 +52,6 @@ public class playground {
             }
             if (i == j){
                 j++;
-
             }
         }
         System.out.println(Arrays.toString(arr));

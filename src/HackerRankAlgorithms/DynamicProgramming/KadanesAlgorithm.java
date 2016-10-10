@@ -5,7 +5,7 @@ package HackerRankAlgorithms.DynamicProgramming;
  */
 public class KadanesAlgorithm {
     public static void main(String[] args){
-        long[] arr = {1, -1, 2, 4, -6, 10, 3};
+        long[] arr = {-5, 2, 4, -999};
         System.out.println(max_subarray(arr));
     }
 
