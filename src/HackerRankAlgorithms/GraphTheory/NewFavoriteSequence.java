@@ -22,7 +22,6 @@ public class NewFavoriteSequence {
 
         int[] inDegree = new int[1000001];
 
-//        Queue<Integer> queue = new ArrayDeque<>();
         PriorityQueue<Integer> queue = new PriorityQueue<>(Comparator.naturalOrder());
         int maxVal = -1;
 

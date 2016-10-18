@@ -26,6 +26,7 @@ public class BeautifulTriplets {
 
         int count = 0;
 
+        //TODO Can be done in linear time
         for (int i = 0; i < arr.length; i++) {
             int j = d + arr[i];
             int k = 2 * d + arr[i];

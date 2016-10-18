@@ -17,16 +17,11 @@ public class playground {
 //        mergeSort(arr, 0, arr.length - 1);
 //        System.out.println(Arrays.toString(arr));
 
-        for (int i = 0; i < 5; i++) {
-            System.out.println(fibonacci(i));
-        }
-    }
-
-    private static int fibonacci(int n){
-        if (n == 0 || n == 1) return 1;
-        if (map.containsKey(n)) return map.get(n);
-        map.put(n, fibonacci(n - 1) + fibonacci(n - 2));
-        return map.get(n);
+        String a = "dog";
+        StringBuilder b = new StringBuilder("dog");
+        String c = a;
+        System.out.println(a == b.toString());
+        System.out.println(a == c);
     }
 
     private static void mergeSort(int[] arr, int left, int right){

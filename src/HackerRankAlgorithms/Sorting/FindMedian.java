@@ -41,7 +41,7 @@ public class FindMedian {
             else if (k < p) return rQuickSelect(arr, start, p - 1, k);
             else return rQuickSelect(arr, p + 1, end, k);
         }
-        else return k;
+        return k;
     }
 
     private static int randomPartition(int[] arr, int start, int end){

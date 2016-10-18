@@ -102,7 +102,6 @@ public class NewPrimsST {
         Node sourcenode = graph[source];
         sourcenode.distance = 0;
         Heap heap = new Heap();
-//        heap.insert(sourcenode);
 
         for (Edge edge: adjacencyList[source]){
             graph[edge.toIndex].distance = edge.weight;
