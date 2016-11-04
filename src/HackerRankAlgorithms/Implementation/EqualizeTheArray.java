@@ -1,18 +1,30 @@
+package HackerRankAlgorithms.Implementation;
+
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Created by Adam on 5/11/2016.
+ * Created by Adam on 11/4/2016.
  */
-public class Template {
-    public static void main(String[] args) throws IOException {
+public class EqualizeTheArray {
+    public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        long cases = Long.parseLong(br.readLine().trim());
 
-        for (long i = 1; i <= cases; i++){
+        br.readLine();
+        int[] arr = toIntArray(br.readLine().split(" "));
 
+        int[] occurances = new int[101];
+
+        for (int i: arr){
+            occurances[i]++;
         }
+
+        int max = Integer.MIN_VALUE;
+        for (int i: occurances){
+            max = Math.max(max, i);
+        }
+
+        System.out.println(arr.length - max == 0 ? 0 : arr.length - max);
     }
 
     private static int[] toIntArray(String[] arr){

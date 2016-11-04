@@ -1,96 +1,130 @@
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Adam on 6/12/2016.
  */
 public class playground {
 
-    private static int[] memo;
-    private static Map<Integer, Integer> map = new HashMap<>();
-
     public static void main(String[] args) throws IOException {
-//        int[] arr = {2,3,4,1,5};
-//
-//        mergeSort(arr, 0, arr.length - 1);
-//        System.out.println(Arrays.toString(arr));
 
-        String a = "dog";
-        StringBuilder b = new StringBuilder("dog");
-        String c = a;
-        System.out.println(a == b.toString());
-        System.out.println(a == c);
+//        for (int i = 10; i < 50; i++) {
+//            System.out.println(binarySearch(i) + " " + Math.sqrt(i));
+//        }
+
+//        int[] arr = {1,-1,2,-1,3,-1,4,-1,5,-1,6,-1,7,-1,-10};
+//        System.out.println(LIS(arr));
+
+        MAX = 4;
+//        printCompositions(5, 0);
+//        print(5, "");
+//        newPrint(20, 0, new int[21], 0);
+        print(5, "");
     }
 
-    private static void mergeSort(int[] arr, int left, int right){
-        if (left >= right) return;
-        int mid = (left + right) / 2;
-        mergeSort(arr, left, mid);
-        mergeSort(arr, mid + 1, right);
-        inPlaceMerge(arr, left, right);
+    static int[] arr = new int[100];
+    static int MAX;
+
+
+    static void print(int n, String s){
+        if (n <= 0){
+            if (n == 0){
+                System.out.println(s);
+            }
+        }
+        else {
+            for (int i = 1; i <= MAX; i++) {
+                print(n - i, s + " " + i);
+            }
+        }
     }
 
-    private static void inPlaceMerge(int[] arr, int start, int end){
-        if (start >= end) return;
-        int i = start;
-        int j = (start + end) / 2;
-        if (i == j) j++;
-        while (i <= end && j <= end){
-            if (arr[i] <= arr[j]){
-                i++;
+    private static void printCompositions(int n, int i){
+        if (n == 0){
+            for (int j = 0; j < i; j++) {
+                System.out.print(arr[j] + " ");
+            }
+            System.out.println();
+        }
+        else if (n > 0){
+            for (int j = 1; j <= MAX; j++) {
+                arr[i] = j;
+                printCompositions(n - j, i + 1);
+            }
+        }
+    }
+
+    static int LIS(int[] arr){
+        int[] subsequence = new int[arr.length];
+        subsequence[0] = arr[0];
+        int lastElement = 0;
+
+        for (int i = 1; i < arr.length; i++){
+            if (arr[i] < subsequence[0]) {
+                subsequence[0] = arr[i];
+            }
+            else if (arr[i] > subsequence[lastElement]){
+                lastElement++;
+                subsequence[lastElement] = arr[i];
             }
             else {
-                swap(arr, i, j);
-                j++;
-            }
-            if (i == j){
-                j++;
+                int toReplace = binarySearch(subsequence, arr[i], -1, lastElement);
+                subsequence[toReplace] = arr[i];
             }
         }
-        System.out.println(Arrays.toString(arr));
+        return lastElement + 1;
     }
 
-    private static void swap(int[] arr, int i, int j){
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
-
-    private static boolean sameArray(int[] arr1, int[] arr2){
-        int n = arr1.length;
-        int i = 0;
-        while (i < n){
-            boolean found = false;
-            int j = 0;
-            while (j < n){
-                if (arr1[i] == arr2[j]){
-                    found = true;
-                    break;
-                }
-                j++;
+    private static int binarySearch(int[] arr, int k, int left, int right){
+        while (left < right){
+            int mid = (left + right) / 2;
+            if (arr[mid] <= k){
+                left = mid + 1;
             }
-            if (!found) {
-                return false;
+            else {
+                right = mid - 1;
             }
-            i += 1;
         }
-        return true;
+        return right;
     }
 
-    private static int numCombos(int n){
-        if (n == 0) return 1;
-        if (n < 0) return 0;
-        if (memo[n] != 0) return memo[n];
-        return memo[n] = numCombos(n -1) + numCombos(n - 2);
+    static int kadanesAlgo(int[] arr){
+        int max_to_here = 0, max_so_far = 0;
+        for (int i: arr){
+            max_to_here = Math.max(max_to_here + i, 0);
+            max_so_far = Math.max(max_to_here, max_so_far);
+        }
+
+        return max_so_far;
     }
 
-    private static int[] toIntArray(String[] arr){
-        int[] toReturn = new int[arr.length];
-        for (int i = 0; i < arr.length; i += 1){
-            toReturn[i] = Integer.parseInt(arr[i]);
+    static double binarySearch(double d){
+        double previousGuess = d / 2;
+
+        double leftBound = 0, rightBound = d;
+
+        for (int i = 0; i < 10000; i++) {
+            double temp = previousGuess;
+            previousGuess = (leftBound + rightBound) / 2;
+
+            if (temp * temp > d) {
+                rightBound = temp;
+            }
+            else {
+                leftBound = temp;
+            }
         }
-        return toReturn;
+
+        return previousGuess;
+    }
+
+    static double sqrt(double d){
+        double previousX = d / 2;
+
+        for (int i = 0; i < 100; i++) {
+            previousX = .5 * (previousX + d / previousX);
+        }
+
+        return previousX;
     }
 }
