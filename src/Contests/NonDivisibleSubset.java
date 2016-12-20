@@ -2,12 +2,9 @@ package Contests;
 
 import java.io.IOException;
 
-/**
- * Created by Adam on 5/24/2016.
- */
 public class NonDivisibleSubset {
     public static void main(String[] args) throws IOException {
-        System.out.println(subSetSumDynamic(new int[]{1, 2, 3, 4, 5}, 15));
+        System.out.println(subSetSumDynamic(new int[]{10, 12, 6, 4, 1, 3, 15, 9}, 34));
 
     }
 
