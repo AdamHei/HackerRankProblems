@@ -9,63 +9,79 @@ import java.util.List;
 
 public class ZeroOneGame {
     public static void main(String[] args) throws IOException {
+        ZeroOneGame obj = new ZeroOneGame();
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int cases = Integer.parseInt(br.readLine().trim());
 
         for (int i = 0; i < cases; i++) {
             br.readLine();
-            List<Integer> list = toList(br.readLine().split(" "));
+            List<Integer> list = obj.toList(br.readLine().split(" "));
 
-            int howManyMoves = newCountMoves(list);
+            int howManyMoves = obj.myBestCountMoves(list);
             System.out.println(howManyMoves % 2 == 0 ? "Bob" : "Alice");
         }
     }
 
-    private static int newCountMoves(List<Integer> gameBoard){
+    private int myBestCountMoves(List<Integer> listBoard) {
+        MyLinkedList gameBoard = new MyLinkedList(listBoard);
         int count = 0;
-        for (int i = 1; i < gameBoard.size() - 1; i++) {
-            if (gameBoard.get(i - 1) == 0 && gameBoard.get(i + 1) == 0){
-                gameBoard.remove(i);
-                if (i > 1){
-                    i -= 2;
-                }
-                else {
-                    i--;
-                }
+
+        MyLinkedList.Node current = gameBoard.head;
+
+        while (current.next != null) {
+            if (current.previous != null && current.previous.element == 0 && current.next.element == 0) {
+                MyLinkedList.Node prev = current.previous;
+                MyLinkedList.Node next = current.next;
+
+                prev.next = next;
+                next.previous = prev;
+                current = prev;
                 count++;
+            } else {
+                current = current.next;
             }
-        }
-        return count;
-    }
-
-    private static int countMoves(List<Integer> gameBoard) {
-        int count = 0;
-        boolean removed = findAndRemove(gameBoard);
-
-        while (removed) {
-            count++;
-            removed = findAndRemove(gameBoard);
         }
 
         return count;
     }
 
-    private static boolean findAndRemove(List<Integer> list) {
-        for (int i = 1; i < list.size() - 1; i++) {
-            if (list.get(i - 1) == 0 && list.get(i + 1) == 0) {
-                list.remove(i);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static List<Integer> toList(String[] strArr) {
+    private List<Integer> toList(String[] strArr) {
         List<Integer> list = new ArrayList<>();
         for (String aStrArr : strArr) {
             list.add(Integer.parseInt(aStrArr));
         }
         return list;
+    }
+
+    public class MyLinkedList {
+        Node head;
+        int size;
+
+        private class Node {
+            Node(int element) {
+                this.element = element;
+            }
+
+            int element;
+            Node next;
+            Node previous;
+        }
+
+        MyLinkedList(List<Integer> list) {
+            size = list.size();
+            head = new Node(list.get(0));
+            head.previous = null;
+            Node current = head;
+
+            for (int i = 1; i < list.size(); i++) {
+                Node next = new Node(list.get(i));
+                current.next = next;
+                next.previous = current;
+
+                current = next;
+            }
+        }
     }
 }
