@@ -146,9 +146,19 @@ public class SpanningTreeFraction {
     static class EdgeComparator<E extends IWeight> implements Comparator<IGraph.Edge<E>> {
         @Override
         public int compare(IGraph.Edge<E> o1, IGraph.Edge<E> o2) {
-            if (o1.edgeData.getWeight() > 1 || o2.edgeData.getWeight() > 1) {
+            if (o1.edgeData.getWeight() >= 1.0 || o2.edgeData.getWeight() >= 1.0) {
                 if (o1.getEdgeData().getWeight() > o2.getEdgeData().getWeight()) return -1;
                 if (o1.getEdgeData().getWeight() < o2.getEdgeData().getWeight()) return 1;
+
+                if (o1.edgeData.getWeight() == 1.0){
+                    if (((Pair) o1.edgeData).A <= ((Pair) o2.edgeData).B){
+                        return -1;
+                    }
+                    return 1;
+                }
+
+                if (((Pair) o1.edgeData).A >= ((Pair) o2.edgeData).B) return -1;
+                return 1;
             }
 
             Pair o1Data = (Pair) o1.edgeData;
